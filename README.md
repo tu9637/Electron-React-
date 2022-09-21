@@ -1,4 +1,4 @@
-本项目是基于React+Electron开发
+本项目是基于React+Electron的基础框架
 可以随意书写react语法
 ### `npm start`
 
