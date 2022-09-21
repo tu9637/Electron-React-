@@ -1,0 +1,130 @@
+{
+  "name": "app",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./electron/main/index.js",
+  "homepage": ".",
+  "build": {
+    "extends": null,
+    "productName": "my-app",
+    "copyright": "©2021 XXX, Inc.",
+    "appId": "com.my-app.app",
+    "directories": {
+      "output": "build-electron"
+    },
+    "files": [
+      "electron/**/*",
+      "build/**/*"
+    ],
+    "extraResources": [
+      {
+        "filter": [
+          "./config.json",
+          "./server-config.json"
+        ]
+      }
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "installerIcon": "./public/favicon.ico",
+      "uninstallerIcon": "./public/favicon.ico",
+      "installerHeaderIcon": "./public/favicon.ico",
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "my-app"
+    },
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://xxxxx/"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity"
+    },
+    "dmg": {
+      "background": "./appdmg.png",
+      "icon": "./icon.icns",
+      "iconSize": 100,
+      "contents": [
+        {
+          "x": 380,
+          "y": 280,
+          "type": "link",
+          "path": "/Applications"
+        },
+        {
+          "x": 110,
+          "y": 280,
+          "type": "file"
+        }
+      ],
+      "window": {
+        "width": 500,
+        "height": 500
+      }
+    }
+  },
+  "scripts": {
+    "start": "concurrently \"wait-on http://localhost:3000 && electron .\"  \" cross-env BROWSER=none react-scripts start\" ",
+    "pack": "electron-builder",
+    "prepack": "react-scripts build",
+    "pack:dir": "electron-builder --dir",
+    "build": "(react-scripts build) &&  electron-builder"
+  },
+  "dependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.8.3",
+    "web-vitals": "^2.1.4",
+    "electron-is-dev": "^2.0.0"
+  },
+  "devDependencies": {
+    "electron": "^17.1.2",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.59",
+    "@types/react": "^18.0.20",
+    "@types/react-dom": "^18.0.6",
+    "concurrently": "^7.4.0",
+    "copy-webpack-plugin": "^10.2.4",
+    "cross-env": "^7.0.3",
+    "electron-builder": "^23.3.3",
+    "typescript": "^4.5.4",
+    "wait-on": "^6.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
